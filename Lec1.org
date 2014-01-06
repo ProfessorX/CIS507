@@ -1,0 +1,4 @@
+* Introduction to Algorithms
+** TODO The first tutorial of this course. Classroom 8.
+   SCHEDULED: <2014-01-07 Tue 11:30>
+
