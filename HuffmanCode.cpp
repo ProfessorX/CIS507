@@ -42,6 +42,7 @@ int min(HuffmanTree t, int i)
 	}// end of for
 	t[flag].parent = 1;
 	return flag;
+        
 }
 
 void select(HuffmanTree t, int i, int &s1, int &s2)
