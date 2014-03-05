@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage{latexsym}
+\usepackage{epsfig}
+\usepackage{latexsym}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[noend]{algorithmic}
+\usepackage{algorithm}
+%\usepackage{colortbl}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations,decorations.shapes,backgrounds,shapes}
+
+\usepackage{color}
+\usepackage{xcolor}
+%\usepackage{listings}
+
+%\usepackage{caption}
+%\DeclareCaptionFont{white}{\color{white}}
+%\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+%\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\begin{document}
+
+\title{CIS507: Design \& Analysis of Algorithms\\\emph{Homework 1 (with answers), Spring 2014}}
+
+
+%\date{DRAFT!}
+\date{}
+
+\maketitle
+\textbf{Student Name:} $------------------------$
+
+\vspace{0.2in}
+
+\textbf{Student ID:} $-------------------------$
+
+\vspace{0.2in}
+
+
+\noindent{\bf Q1. }
+Give asymptotic upper bounds for $T(n)$ for each of the following
+recurrences  (use the $O$-notation). Assume that $T(n)$ is a
+non-negative constant for $n$ sufficiently large (in terms of
+$\alpha$). Make your bounds as tight as possible, and justify your
+answers. 
+
+\begin{enumerate}
+\item  \textbf{(1 point)} $T(n)=n^{1-\alpha}\cdot
+  T(n^{\alpha})+\Theta(n)$, for a constant $\alpha\in (0,1)$.   
+\item  \textbf{(1 points)} $T(n)= T(n-1)+T(\alpha\cdot n)+1$, for a
+  constant $\alpha\in (0,1)$. 
+\end{enumerate}
+\noindent \underline{\textbf{ANSWER:}}
+
+Write your answer here ...
+
+
+\medskip 
+
+\noindent{\bf Q2. }
+\textbf{(2 points)}
+Consider the following problem called MAXCUT: given an undirected
+graph $G=(V,E)$ with non-negative edge weights $w_e$ for $e\in E$,
+find a partition $(S,V\setminus S)$ of the vertices that maximizes the
+total weight of the edges crossing the cut, that is,
+$\sum_{e\in\delta(S)}w_{e}$, where $\delta(S)$ is the set of edges
+that have one end-point in $S$ and another in $V\setminus S$.     
+
+Consider the following randomized algorithm: Select a subset $S$ by
+picking each vertex in $V$ independently with probability
+$\frac{1}{2}$. Show that the expected wight of the edges in the cut
+$(S,V\setminus S)$ is a factor of $\frac{1}{2}$ of the total weight,
+that is: $$\mathbb{E}\left[\sum_{e\in\delta(S)}w_{e}\right]=
+\frac{1}{2}\sum_{e\in E}w_e$$ ({\it Hint:} use an indicator random
+variable for each edge.)  
+ 
+\medskip
+
+\noindent{\bf Q3.}
+Suppose that we would like to analyze the change in price for a given
+stock. We observe the different prices over a period of $n$ days. Let
+$A[i]$ be the observed price in day $i$. We would like to compute: 
+\begin{enumerate}
+\item[(I)]  the smallest absolute price difference: $\min_{1\le i,j\le n,i\ne j}|A[i]-A[j]|$; 
+\item[(II)] the largest absolute price difference: $\max_{1\le i,j\le n}|A[i]-A[j]|$; 
+\item[(III)]  the average absolute price difference: $\frac{1}{n(n-1)}\sum_{1\le i,j\le n}|A[i]-A[j]|$; 
+\item[(IV)]  the median absolute price difference: $\text{median}(\{|A[i]-A[j]|:~1\le i,j\le n\})$. 
+\end{enumerate}
+\begin{enumerate}
+\item[(i)] \textbf{(1 point)} give an $O(n^2)$ deterministic algorithm for computing (I), (II), (III) and (IV);  
+\item[(ii)] \textbf{(1 point)} give an $O(n\log n)$ deterministic algorithm for computing (I); 
+\item[(iii)] \textbf{(1 point)} give an $O(n)$ deterministic algorithm for computing (II); 
+\item[(iv)] \textbf{(1 point)} give an $O(n\log n)$ deterministic algorithm for computing (III); 
+\item[(v)] \textbf{(1 point)}  give a randomized algorithm with $O(n^2)$ expected running time for computing (IV).
+\end{enumerate}
+Implement the four algorithms in (ii), (iii), (iv) and (v). For
+testing purposes, your program  should accept as an input a file
+"test.in", containing $n$, followed by the set of $n$ numbers (1 per
+line). It should output the four values described in (I), (II), (III),
+and (IV).  
+\medskip 
+
+\noindent{\bf Q4. (4 points)}
+Implement a {\it perfect} hash table, where keys are decimal numbers, each having at most 10 digits. For both hash levels, use the class of universal hash functions of the dot-product form: if the hash table size is a prime $m$, pick a random sequence $\mathbf{a}:=\langle a_0,a_1,\ldots,a_9\rangle$, where each $a_i\in\{0,1\ldots,m-1\}$; given a key $k$, decompose it into a sequence of decimal digits $\mathbf k:=\langle k_0,k_1,\ldots,k_9\rangle$, then use hash functions of the form $ h_{\mathbf{a}}(k)=(\sum_{r=0}^9a_ik_i)\mod m$.  
+Your table should have  no collisions, and and uses at most $8n$ table entries, in total. ({\it Hint:} use the fact that for any positive integer $n$, there is at least one prime between $n$ and $2n$.)
+
+For testing purposes, your program  should accept as an input a file "test.in" containing the number of keys $n$, followed by the set of keys to be hashed (1 per line). It should output in another file "test.out", the following lines: the first line (call it line 0) contains the values chosen for the first-level hash function in the following order (separated by spaces): $m, a_0,a_1,\ldots,a_r$; then for $i=1,\ldots,m$, the $i$th line contains the values corresponding to the second level-hash function chosen at the $i$th row in the first level table (again in the order $m(i), a_0(i),a_1(i),\ldots,a_r(i)$; output "0 0" if that row is empty). Following this, the file should contain triples (one per line): $(k,h(k),h_i(k))$, where $k$ is the key, $i=h(k)$ is the index in the first-level hash table, $h_i(k)$ is the index in the second level hash table.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
