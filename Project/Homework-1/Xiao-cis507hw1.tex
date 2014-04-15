@@ -1,0 +1,356 @@
+\documentclass{article}
+\usepackage{latexsym}
+\usepackage{epsfig}
+\usepackage{latexsym}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[noend]{algorithmic}
+\usepackage{algorithm}
+%\usepackage{colortbl}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations,decorations.shapes,backgrounds,shapes}
+
+\usepackage{color}
+\usepackage{xcolor}
+%\usepackage{listings}
+
+%\usepackage{caption}
+%\DeclareCaptionFont{white}{\color{white}}
+%\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+%\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\usepackage{mathtools}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+% Some more house keeping
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\begin{document}
+
+\title{CIS507: Design \& Analysis of Algorithms\\\emph{Homework 1 (with answers), Spring 2014}}
+
+
+%\date{DRAFT!}
+\date{March 5th, 2014}
+
+\maketitle
+\textbf{Student Name: Yanan Xiao}
+
+\vspace{0.2in}
+
+\textbf{Student ID\@: 131102019}
+
+\vspace{0.2in}
+
+
+\noindent{\bf Q1. }
+Give asymptotic upper bounds for $T(n)$ for each of the following
+recurrences  (use the $O$-notation). Assume that $T(n)$ is a
+non-negative constant for $n$ sufficiently large (in terms of
+$\alpha$). Make your bounds as tight as possible, and justify your
+answers. 
+
+\begin{enumerate}
+\item  \textbf{(1 point)} $T(n)=n^{1-\alpha}\cdot
+  T(n^{\alpha})+\Theta(n)$, for a constant $\alpha\in (0,1)$.   
+\item  \textbf{(1 points)} $T(n)= T(n-1)+T(\alpha\cdot n)+1$, for a
+  constant $\alpha\in (0,1)$. 
+\end{enumerate}
+\noindent \underline{\textbf{ANSWER:}}
+
+\begin{enumerate}
+\item
+$$ T(n)=n^{1-\alpha}\cdot T(n^{\alpha})+\Theta(n) \Leftrightarrow
+\frac{T(n)}{n} = \frac{T(n^{\alpha})}{n^{\alpha}} + \Theta(1) $$ 
+Let
+$$ \frac{T(n)}{n} = P(n) \Rightarrow \frac{T(n)}{n} =
+\frac{T(n^{\alpha})}{n^{\alpha}} + \Theta(1) \Leftrightarrow P(n) =
+P(n^{\alpha}) + \Theta(1) $$  
+Let $$ n = 2^m \Leftrightarrow m = \log n \Rightarrow S(2^m) =
+S(2^{\alpha m}) + \Theta(1) $$ 
+Let
+$$ Q(m) = P(2^m) \Rightarrow Q(m) = Q(\alpha m) + \Theta(1) $$ 
+By Master Theorem, we can get $$ m^{\log_b a} = m^{\log_{\frac{1}{\alpha}}
+  1} = m^0 = 1 \Rightarrow Q(m) = \Theta(\log m) \Rightarrow
+P(n)=\Theta(\log \log n) $$ 
+But $$ T(n) = nP(n) \Rightarrow T(n) = \Theta(n\log \log n) = O(n \log
+\log n)$$ 
+
+\item
+From the question description we can see that $T(n)$ is sufficiently
+large in terms of $\alpha$.\\
+To be specific, let's assume $\alpha=0.5$, then we can rewrite the
+recurrence equation as $T(n) = T(n-1) + T(0.5n) + 1$. By using tree
+induction it is not hard to guess $T(n) = O(n\log n)$. The proof is as
+follows. 
+
+
+
+\end{enumerate}
+
+
+\medskip 
+
+\noindent{\bf Q2. }
+\textbf{(2 points)}
+Consider the following problem called MAXCUT: given an undirected
+graph $G=(V,E)$ with non-negative edge weights $w_e$ for $e\in E$,
+find a partition $(S,V\setminus S)$ of the vertices that maximizes the
+total weight of the edges crossing the cut, that is,
+$\sum_{e\in\delta(S)}w_{e}$, where $\delta(S)$ is the set of edges
+that have one end-point in $S$ and another in $V\setminus S$.     
+
+Consider the following randomized algorithm: Select a subset $S$ by
+picking each vertex in $V$ independently with probability
+$\frac{1}{2}$. Show that the expected wight of the edges in the cut
+$(S,V\setminus S)$ is a factor of $\frac{1}{2}$ of the total weight,
+that is: $$\mathbb{E}\left[\sum_{e\in\delta(S)}w_{e}\right]=
+\frac{1}{2}\sum_{e\in E}w_e$$ ({\it Hint:} use an indicator random
+variable for each edge.)\\  
+\noindent \underline{\textbf{ANSWER:}}
+Let's define an indicator random variable $P_{e}$ where
+\begin{equation}
+  \label{eq:indicator-random-variable}
+  P_{e} = 
+  \begin{cases}
+    1 & the~edge~crosses~the~cut\\
+    0 & the~edge~does~not~cross~the~cut
+  \end{cases}
+\end{equation}
+Since each vertex is picked up independently with a $0.5$ probability,
+therefore the probability for a vertex's both ends are in the same set
+is $0.5$. Thus we have $\mathbb{E}[P_{e}]~=~0.5$.
+$$\sum_{e\in\delta(S)}w_{e}~=~\sum_{e\in E}w_{e}P_{e}$$
+Take the expectation of both sides, we have 
+$$E[\sum_{e\in\delta(S)}w_{e}]~=~E[\sum_{e\in E}w_{e}P_{e}]$$ 
+With the linearity of expectation it's not hard to get
+$$E[\sum_{e\in\delta(S)}w_{e}]~=~\sum_{e\in
+  E}w_{e}\mathbb{E}[P_{e}]~=~\frac{1}{2}\sum_{e\in E}w_{e}$$ 
+\medskip
+
+\noindent{\bf Q3.}
+Suppose that we would like to analyze the change in price for a given
+stock. We observe the different prices over a period of $n$ days. Let
+$A[i]$ be the observed price in day $i$. We would like to compute: 
+\begin{enumerate}
+\item[(I)]  the smallest absolute price difference: $\min_{1\le i,j\le
+    n,i\ne j}|A[i]-A[j]|$;  
+\item[(II)] the largest absolute price difference: $\max_{1\le i,j\le
+    n}|A[i]-A[j]|$;  
+\item[(III)]  the average absolute price difference:
+  $\frac{1}{n(n-1)}\sum_{1\le i,j\le n}|A[i]-A[j]|$;  
+\item[(IV)]  the median absolute price difference:
+  $\text{median}(\{|A[i]-A[j]|:~1\le i,j\le n\})$.  
+\end{enumerate}
+\begin{enumerate}
+\item[(i)] \textbf{(1 point)} give an $O(n^2)$ deterministic algorithm
+  for computing (I), (II), (III) and (IV); 
+\item[(ii)] \textbf{(1 point)} give an $O(n\log n)$ deterministic
+  algorithm for computing (I);  
+\item[(iii)] \textbf{(1 point)} give an $O(n)$ deterministic algorithm
+  for computing (II);  
+\item[(iv)] \textbf{(1 point)} give an $O(n\log n)$ deterministic
+  algorithm for computing (III);  
+\item[(v)] \textbf{(1 point)}  give a randomized algorithm with
+  $O(n^2)$ expected running time for computing (IV). 
+\end{enumerate}
+Implement the four algorithms in (ii), (iii), (iv) and (v). For
+testing purposes, your program  should accept as an input a file
+``test.in'', containing $n$, followed by the set of $n$ numbers (1 per
+line). It should output the four values described in (I), (II), (III),
+and (IV).\\
+\noindent \underline{\textbf{ANSWER:}}
+In the following solutions we will use two auxiliary algorithms. One
+is standard merge sort, the other is a randomized selection algorithm.
+\par
+\begin{figure*}[!htbp]
+  \centering
+  \begin{algorithmic}
+    \REQUIRE An array $A$ of length $n$
+    \ENSURE The smallest absolute difference
+    \FOR{$i = 1$ to $n$}
+	\FOR{$j = i + 1$ to $n$}
+		\STATE $B[k] = |A[i] - A[j]|$
+	\ENDFOR
+    \ENDFOR
+    \STATE $min = B[1]$
+    \FOR{$i = 1$ to $len(B)$}
+	\IF{$B[i] < min$}
+		\STATE $min = B[i]$
+	\ENDIF
+    \ENDFOR
+    \STATE return $min$
+
+  \end{algorithmic}
+  \caption{Deterministic Algo for Smallest Abs}
+  \label{fig:deter-smallest}
+\end{figure*}
+
+\begin{figure*}[!htbp]
+  \centering
+  \begin{algorithmic}
+    \REQUIRE An array $A$ of length $n$
+\ENSURE The largest absolute difference
+\FOR{$i = 1$ to $n$}
+	\FOR{$j = i + 1$ to $n$}
+		\STATE $B[k] = |A[i] - A[j]|$
+	\ENDFOR
+\ENDFOR
+\STATE $max = B[1]$
+\FOR{$i = 1$ to $len(B)$}
+	\IF{$B[i] > max$}
+		\STATE $max = B[i]$
+	\ENDIF
+\ENDFOR
+\STATE return $max$
+  \end{algorithmic}
+  \caption{Deterministic Algo for Largest Abs}
+  \label{fig:deter-largest}
+\end{figure*}
+
+\begin{figure*}[!htbp]
+  \centering
+  \begin{algorithmic}
+    \REQUIRE An array $A$ of length $n$
+\ENSURE The average absolute difference
+\STATE $C = 0$
+\FOR{$i = 1$ to $n$}
+	\FOR{$j = i + 1$ to $n$}
+		\STATE $B[k] = |A[i] - A[j]|$
+		\STATE $C = C + B[k]$
+	\ENDFOR
+\ENDFOR
+\STATE return $\frac{C}{n(n-1)}$
+  \end{algorithmic}
+  \caption{Deterministic Algo for Avg Abs}
+  \label{fig:deter-avg}
+\end{figure*}
+
+\begin{figure*}[!htbp]
+  \centering
+  \begin{algorithmic}
+    \REQUIRE An array $A$ of length $n$
+\ENSURE The median absolute difference
+\FOR{$i = 1$ to $n$}
+	\FOR{$j = i + 1$ to $n$}
+		\STATE $B[k] = |A[i] - A[j]|$
+	\ENDFOR
+\ENDFOR
+\STATE $C$ = Merge-sort($B$)
+\STATE return $C[mid]$
+  \end{algorithmic}
+  \caption{Deterministic Algo for Median Abs}
+  \label{fig:deter-median}
+\end{figure*}
+
+\begin{figure*}[!htbp]
+  \centering
+  \begin{algorithmic}
+    \REQUIRE An array $A$ of length $n$
+\ENSURE The smallest absolute difference
+\STATE $B$ = Merge-sort($A$)
+\STATE $c = B[2]-B[1]$
+\FOR{$i = 1$ to $n-1$}
+	\STATE $d = B[i+1] - B[i]$
+	\IF{$d < c$}
+		\STATE $c = d$
+	\ENDIF
+\ENDFOR
+\STATE return $c$
+  \end{algorithmic}
+  \caption{Deterministic Algo for Smallest Abs with $O(n\log n)$}
+  \label{fig:deter-smallest-1}
+\end{figure*}
+
+\begin{figure*}[!htbp]
+  \centering
+  \begin{algorithmic}
+    \REQUIRE An array $A$ of length $n$
+\ENSURE The largest absolute difference
+\STATE $min = A[1], max = A[1]$
+\FOR{$i = 1$ to $n$}
+	\IF{$A[i] < min$}
+		\STATE $min = A[i]$
+	\ENDIF
+	\IF{$A[i] > max$}
+		\STATE $max = A[i]$
+	\ENDIF
+\ENDFOR
+\STATE return $max - min$
+  \end{algorithmic}
+  \caption{Deterministic Algo for Largest Abs with $O(n)$}
+  \label{fig:deter-largest-1}
+\end{figure*}
+
+\begin{figure*}[!htbp]
+  \centering
+  \begin{algorithmic}
+    \REQUIRE An array $A$ of length $n$
+\ENSURE The average absolute difference
+\STATE $B =$ Merge-sort ($A$)
+\STATE $sum = 0$
+\FOR{$i = 1$ to $n$}
+	\STATE $sum = sum + B[i] * ( 2*i - len(B) + 1 ) $
+\ENDFOR
+\STATE return $\frac{sum}{n(n-1)}$
+  \end{algorithmic}
+  \caption{Deterministic Algo for Avg Abs with $O(n\log n)$}
+  \label{fig:deter-avg-1}
+\end{figure*}
+
+\begin{figure*}[!htbp]
+  \centering
+  \begin{algorithmic}
+        \REQUIRE An array $A$ of length $n$
+    \ENSURE The median absolute difference
+    \FOR{$i = 1$ to $n$}
+	\FOR{$j = i + 1$ to $n$}
+		\STATE $B[k] = |A[i] - A[j]|$
+	\ENDFOR
+    \ENDFOR
+    \STATE $C$= Randomized-select $(A, 1, n, \floor{n/2})$
+    \STATE return $C$
+  \end{algorithmic}
+  \caption{Randomized Algo for Median Abs with $O(n^{2})$}
+  \label{fig:random-median}
+\end{figure*}
+
+
+
+
+
+
+
+
+
+\medskip 
+
+\noindent{\bf Q4. (4 points)}
+Implement a {\it perfect} hash table, where keys are decimal numbers,
+each having at most 10 digits. For both hash levels, use the class of
+universal hash functions of the dot-product form: if the hash table
+size is a prime $m$, pick a random sequence $\mathbf{a}:=\langle
+a_0,a_1,\ldots,a_9\rangle$, where each $a_i\in\{0,1\ldots,m-1\}$;
+given a key $k$, decompose it into a sequence of decimal digits
+$\mathbf k:=\langle k_0,k_1,\ldots,k_9\rangle$, then use hash
+functions of the form $ h_{\mathbf{a}}(k)=(\sum_{r=0}^9a_ik_i)\mod m$.   
+Your table should have  no collisions, and and uses at most $8n$ table
+entries, in total. ({\it Hint:} use the fact that for any positive
+integer $n$, there is at least one prime between $n$ and $2n$.) 
+
+For testing purposes, your program  should accept as an input a file
+"test.in" containing the number of keys $n$, followed by the set of
+keys to be hashed (1 per line). It should output in another file
+"test.out", the following lines: the first line (call it line 0)
+contains the values chosen for the first-level hash function in the
+following order (separated by spaces): $m, a_0,a_1,\ldots,a_r$; then
+for $i=1,\ldots,m$, the $i$th line contains the values corresponding
+to the second level-hash function chosen at the $i$th row in the first
+level table (again in the order $m(i), a_0(i),a_1(i),\ldots,a_r(i)$;
+output "0 0" if that row is empty). Following this, the file should
+contain triples (one per line): $(k,h(k),h_i(k))$, where $k$ is the
+key, $i=h(k)$ is the index in the first-level hash table, $h_i(k)$ is
+the index in the second level hash table. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.2.23)  5 MAR 2014 23:34
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.2.23)  5 MAR 2014 23:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -616,7 +616,7 @@ LaTeX Warning: No \author given.
 Here is how much of TeX's memory you used:
  13459 strings out of 493304
  272717 string characters out of 6139871
- 349676 words of memory out of 5000000
+ 348676 words of memory out of 5000000
  16601 multiletter control sequences out of 15000+600000
  12539 words of font info for 52 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -637,7 +637,7 @@ fonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti
 12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm1
 0.pfb>
-Output written on last-name-cis507hw1.pdf (3 pages, 170351 bytes).
+Output written on last-name-cis507hw1.pdf (3 pages, 170803 bytes).
 PDF statistics:
  81 PDF objects out of 1000 (max. 8388607)
  59 compressed objects within 1 object stream

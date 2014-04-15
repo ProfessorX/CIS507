@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{latexsym}
+\usepackage{epsfig}
+\usepackage{latexsym}
+\usepackage{amssymb,amsmath,amsthm}
+
+%\usepackage{colortbl}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations,decorations.shapes,backgrounds,shapes}
+
+\usepackage{color}
+\usepackage{xcolor}
+%\usepackage{listings}
+
+%\usepackage{caption}
+%\DeclareCaptionFont{white}{\color{white}}
+%\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+%\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+\begin{document}
+
+\title{CIS507: Design \& Analysis of Algorithms\\\emph{Homework 2, Spring 2014}}
+
+
+%\date{DRAFT!}
+\date{}
+
+\maketitle
+
+\noindent{\bf Q1. Problem 14-1 in text book (page 354)} Suppose we wish to keep tack of a {\it point of maximum overlap (PMO)} in a set of intervals, that is, a point with the largest number of intervals in the set that overlap it (think of this as the busiest time for a set of events represented by the intervals). We would like to design a data structure to maintain the intervals, supporting the operations \textsc{Interval-Insert} and \textsc{Find-PMO}. We would like all operations to take expected $O(\log n)$ time on $n$ inserted {\it random} intervals. 
+  
+\begin{enumerate}
+\item  {\bf (0.5 point).} Show that there will always be a PMO that is an endpoint of one of the intervals.  
+
+\item {\bf (0.5 point).} Suppose that we use a BST, which field should be used as the key, and what additional information, if any, needs to be stored at each node to support the required operations? 
+
+\item {\bf (0.5 point).} Show how the operations \textsc{Find-PMO} can be implemented to take expected $O(\log n)$ time on a random set of intervals. 
+
+\item {\bf (2 points).} Implement the operations \textsc{Interval-Insert} and \textsc{Find-PMO}. For testing purposes, your program should take a list of pairs, each of the form "interval.low  interval.high", one per line. Suppose that the number of inserted intervals is $n$. The program then should output $n$ lines, line $i$ contains a PMO and the number of comparisons taken to find it (separated by a space), after the $i$th insertion.  
+\end{enumerate}
+
+\noindent \underline{\textbf{ANSWER:}}
+
+Write your answer here ...
+
+\medskip 
+
+\noindent{\bf Q2.  Problem 17-2 in text book (page 473)}
+Binary search of a sorted array takes logarithmic search time, but the time to insert a new element is linear in the size of the array.  We can improve the time for insertion by keeping several sorted arrays.
+
+Specifically, suppose that we wish to support \textsc{Search} and \textsc{Insert} on  set of $n$ elements. Let $k=\lceil\log_2(n+1)\rceil$, and let the binary representation of $n$ be  
+$\langle n_{k-1},n_{k-2},\ldots,n_0\rangle$. We keep $k$ sorted arrays $A_0,A_1,\ldots,A_{k-1}$, where for $i=0,1,\ldots,k-1$ the length of array $A_i$ is $2^i$. Each array is either full or empty, depending on whether $n_i=1$ or $n_i=0$, respectively. The total number of elements held in all $k$ arrays is therefore $\sum_{i=0}^{k-1}n_i2^i=n$. Although each array is sorted, elements in different arrays bear no particular relationships to each other.
+ \begin{enumerate}
+\item \textbf{(0.5 point)} Describe (write a pseudo code) how to perform the \textsc{Search} operation for this data structure in $O(\log ^2 n)$-worst case running time. 
+
+\item \textbf{(1 point)} Describe how to perform the \textsc{Insert} operation, and show it has $\Theta(n)$ worst case running time.
+{\it Hint:} Create a new array $A_0'$ of size 1 containing the new element to be inserted. If array $A_0$ (which has size 1) is empty, then replace $A_0$ with $A_0'$. Otherwise, merge the two arrays $A_0$ and $A_0'$ into another {\it sorted} array $A_1'$ of size 2, and make $A_0$ empty. If $A_1$ is empty, then replace $A_1$ with $A_1'$; otherwise, merge $A_1$ and $A_1'$ into a sorted array $A_2'$ of size 4, and so on.
+\item Show that the \textsc{Insert} operation has $O(\log n)$-amortized running time:
+\begin{itemize}
+\item[(I)] \textbf{(0.5 point)} use the aggregate method;
+\item[(II)] \textbf{(0.5 point)} use the accounting method;
+\item [(III)] \textbf{(1 point)} use the potential function method.
+\end{itemize}
+\item \textbf{(2 points)} Implement the data structure. For testing purposes, your program should accept as an input a file "test.in" containing a set of numbers (positive integers, 1 per line). It should search for each number in the data structure, and only inserts it if it is not found. The program outputs in another file "test.out", the following lines (in one line separated by a space): the number of successful searches, the amortized number of comparisons per successful search, the amortized number of comparisons per unsuccessful search, the amortized number of comparisons per insertion.   
+\end{enumerate}
+ 
+\medskip
+
+\noindent{\bf Q3.}
+In a dynamic and limited memory environment, each running application is assigned a weight (or priority) and requires a certain amount of memory. An application might spawn other applications, but continues to function without all of them necessarily running (e.g., imagine opening a new tab in a browser). In case memory becomes scarce, the operating system has to choose a {\it minimum-weight} collection of applications to terminate such that the remaining ones fit into the available memory.  When an application is terminated all the applications it generated are also terminated (and this applies recursively). 
+\begin{enumerate}
+\item \textbf{(0.5 point)} Write a formal description of the problem.
+\item \textbf{(2 points)} Design a  dynamic program that decides which collection of applications to terminate. What are the time and space requirements of your DP?
+\item \textbf{(1.5 points)} Implement the DP. For testing purposes, your program should accept as an input a file "test.in" containing in the first line the number of applications and the total avialable memory, followed by the set of applications (1 per line in the form "App-ID\ \ \ memory requirement \ \ \ weight \ \ \ $<$set of ID's of other applications-spawned by this application, separated by spaces$>$"). It should output in another file "test.out", the total weight of the minimum-weight set $S$ of applications that has to be terminated, in one line, followed by the list of App-ID's for the applications in $S$ (separated by spaces).
+\end{enumerate}
+\end{document}
