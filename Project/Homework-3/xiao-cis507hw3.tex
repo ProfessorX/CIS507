@@ -45,7 +45,21 @@ Let $Ax\le b$ be a system of $m$ difference constraints in $n$ unknowns.
   ``relaxation'' step only makes the path shorter (or at least the
   same). According to Theorem 24.9, $x_{i}=\delta(v_{0},v_{i})$ is a
   feasible solution thus $x_{i}\leq 0$ for all $x_{i}$.
-\item Life is awesome in the United Arab Emirates!
+\item Then prove $\sum_{i=1}^{n}x_{i}$ is maximized.\\
+  The proof is equal to $x_{i}\leq \delta(v_{0},v_{i})$ for
+  $i=1,\ldots, n$ and can be proved by induction.
+  \begin{enumerate}
+  \item Base case: Since $x_{i}\leq 0$ for all $x_{i}$, there must be
+    an $x_{i}$ satisfying $x_{i}\leq \delta(v_{0},v_{1})$.
+  \item Suppose $x_{i-1}\leq \delta(v_{0},v_{1})$ is true, consider
+    path from $v_{0}$ to $v_{i}$ and the corresponding constraint
+    $x_{i}-x_{i-1}\leq b_{k}$. By induction we have $x_{i-1}\leq
+    \delta(v_{0},v_{1})$, then $x_{i}-x_{i-1}\leq b_{k}\Rightarrow
+    x_{i}\leq x_{i-1}+b_{k}\leq
+    \delta(v_{0},v_{1})+b_{k}=\delta(v_{0},v_{i})$. 
+  \end{enumerate}
+  From the proof above, we have maximized $\sum_{i}^{n} x_{i}$ when
+  run on the corresponding constraint graph.
 
 \end{enumerate}
 
@@ -93,6 +107,8 @@ without violating any precedence constraints.
 \end{enumerate}
 
 \medskip
+\noindent \underline{\textbf{ANSWER:}} Life is awesome in the United
+Arab Emirates!
 
 \noindent{\bf Q3.}
 \begin{enumerate}
