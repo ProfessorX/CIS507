@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{latexsym}
+\usepackage{epsfig}
+\usepackage{latexsym}
+\usepackage{amssymb,amsmath,amsthm}
+
+%\usepackage{colortbl}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations,decorations.shapes,backgrounds,shapes}
+
+\usepackage{color}
+\usepackage{xcolor}
+%\usepackage{listings}
+
+%\usepackage{caption}
+%\DeclareCaptionFont{white}{\color{white}}
+%\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+%\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+\begin{document}
+
+\title{CIS507: Design \& Analysis of Algorithms\\\emph{Homework 3, Spring 2014}( With answers)}
+
+
+%\date{DRAFT!}
+\date{}
+
+\maketitle
+
+\noindent{\bf Q1. {\bf (2 points) }  Exercise 24.4-8 in the text book.}
+Let $Ax\le b$ be a system of $m$ difference constraints in $n$ unknowns.
+ Show that the Bellman-Ford algorithm, when run on the corresponding constraint graph, maximizes $\sum_{i=1}^nx_i$ subject to $Ax\le b$ and $x_i\leq 0$ for all $x_i$. 
+
+\medskip 
+\noindent \underline{\textbf{ANSWER:}}
+
+\medskip
+
+\noindent{\bf Q2. } We are given a set of jobs $\mathcal{J}$ to be scheduled on an unlimited number of machines. Each job $j\in \mathcal{J}$ has a processing time $p_j> 0$. There is also a set of {\it precedence constraints} describing, for each job $j$, the set of jobs that have to be completed before starting job $j$. We would like to find, for each job $j$ the {\it earliest scheduling time} $S_j$, that is, the first point in time at which the job can be started without violating any precedence constraints.      
+
+\begin{enumerate}
+\item[(I)]  {\bf (1.0 point).} Model this as a graph problem and give a sufficient and necessary condition for the existence of a feasible schedule.
+\item[(II)]  {\bf (2.0 point).} Give an efficient algorithm for either finding the earliest scheduling times $S_j$, for $j\in\mathcal{J}$, or declaring that no feasible schedule exists. Analyze the running time of the algorithm.
+\item[(III)] {\bf (2.0 point).} Suppose now that, instead of processing times, we are given for some pairs of jobs $(i,j)$ the {\it time delay} $t_{ij}\in\mathbb{R}$ (which can be {\it negative}),  imposing that $S_j\ge S_i+t_{ij}$, that is, job $j$ can only be started after $t_{ij}$ units of time from the start time of job $i$. Model this as a graph problem and give an efficient algorithm for either finding the earliest scheduling times $S_j$, for $j\in\mathcal{J}$, or declaring that no feasible schedule exists. Analyze the running time of the algorithm.
+\item[(IV)]  {\bf (3 points).} Implement both algorithms in (II) and (III). For testing purposes, your program in (II) should accept as an input a file "test.in" containing the number $n$ of jobs, followed by a list of $n$ lines; line $j$ contains $p_j$ followed by the list of jobs that have to be completed before starting job $j$ (separated by spaces); 
+your program in (III) should accept as an input a file "test.in" containing the number $n$ of jobs, followed by a list of $n$ lines; line $j$ contains pairs $(i,t_{ij})$ (separated by spaces).
+The two programs should output in another file "test.out" either the earliest scheduling times $S_1,\ldots,S_n$ (separated by spaces), or the word "INFEASIBLE", if there is no feasible schedule.
+\end{enumerate}
+
+\medskip 
+
+\noindent{\bf Q3.} 
+\begin{enumerate}
+\item {\bf (1 point).} Several families go out to dinner together. To increase their social interaction, they would like to sit at tables so that no two members of the same family are at the same table.
+Show how to formulate finding a seating arrangement that meets this objective as a maximum flow problem. Assume that the dinner contingent has p families and that the $i$th family has $a(i)$
+members. Also assume that $q$ tables are available and that the $j$th table has a seating capacity of $b(j)$.
+\item {\bf (2 points). Exercise 26.3-5 in the text book.} We say that a bipartite graph $G=(V,E)$, where $V=L\cup R$, is $d$-regular
+if every vertex $v\in V$ has degree exactly $d$. Every
+$d$-regular bipartite graph has $|L| = |R|$. Prove that every $d$-regular bipartite graph
+has a matching of cardinality $|L|$ by arguing that a minimum cut of the
+corresponding flow network has capacity $|L|$.
+\end{enumerate}
+
+\end{document}
